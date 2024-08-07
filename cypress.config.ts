@@ -8,7 +8,6 @@ module.exports = defineConfig({
     },
     viewportWidth: 2000,
     viewportHeight: 900,
-    baseUrl: 'https://kubefirst.gitopsmagic.com/dashboard/applications',
     env:{
       user_name: process.env.USERNAME,
       password: process.env.PASSWORD,

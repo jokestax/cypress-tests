@@ -21,7 +21,9 @@ const checkRunning = (url:string) =>{
 
 describe('Kubefirst Console', () => {
   it('Login in through vault', () => {
-      cy.visit('/');
+      const baseUrl =  `https://kubefirst.${domain}/dashboard/applications`
+      if(!checkStatusCode(baseUrl))  throw new Error(`Timed out after ${totalDuration / 60000} minutes waiting for status code 200 for ${url}.`);
+      cy.visit(baseUrl)
       cy.findByRole('button', { name: /vault\-icon log in with vault/i}).click();
       cy.findByRole('combobox', {name: /method/i}).select('Username');
       cy.findByRole('textbox',{ name: /username/i}).clear().type(user_name);
