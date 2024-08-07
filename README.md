@@ -1,7 +1,3 @@
-# Project Title
-
-A brief description of your project.
-
 ## Prerequisites
 
 - **Node.js**: Download from [nodejs.org](https://nodejs.org/).
