@@ -17,15 +17,6 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build and Start
-        run: |
-          npm run build
-          npm start &
-        env:
-          USERNAME: ${{ secrets.USERNAME }}
-          PASSWORD: ${{ secrets.PASSWORD }}
-          DOMAIN: ${{ secrets.DOMAIN }}
-
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
