@@ -1,12 +1,8 @@
 import '@testing-library/cypress/add-commands';
-import axios from 'axios';
-import { error } from 'cypress/types/jquery';
-import { result } from 'cypress/types/lodash';
 const user_name = Cypress.env('user_name');
 const password = Cypress.env('password');
 const domain = Cypress.env('domain_name');
-const checkInterval = 1*60*1000;
-const totalDuration = 3600;
+const totalDuration = 120000;
 
 const checkStatusCode = (url: string) => {
 
