@@ -1,8 +1,8 @@
 import '@testing-library/cypress/add-commands';
-const user_name = Cypress.env('user_name');
-const password = Cypress.env('password');
-const domain = Cypress.env('domain_name');
-const totalDuration = 120000;
+const user_name : string = "kbot";
+let cluster_name: string = Cypress.env('CLUSTER_NAME');
+let totalDuration = Cypress.env('TIMEOUT'); 
+let password: string ='',domain: string ='';
 
 const checkStatusCode = (url: string) => {
 
@@ -19,9 +19,29 @@ const checkRunning = (url:string) =>{
   cy.findByText(/running/i).should('exist');
 }
 
+
 describe('Kubefirst Console', () => {
+
+  it('Get Kbot password', () =>{
+      const requestUrl: string = `https://kubefirst-development.mgmt-20.kubefirst.com/api/proxy?url=/cluster/${cluster_name}`;
+      if(!checkStatusCode(requestUrl))  throw new Error(`Timed out after ${totalDuration / 60000} minutes waiting for status code 200 for ${url}.`);
+      cy.request({
+        method: 'GET',
+        url: requestUrl,
+        followRedirect: true,
+      }).then((response)=>{
+          const cluster = response.body;
+          expect(cluster).to.have.property('vault_auth');
+          expect(cluster.vault_auth).to.have.property('kbot_password');
+          expect(cluster).to.have.property('domain_name');
+          password = cluster.vault_auth.kbot_password;
+          domain = cluster.domain_name;
+      })
+  })
+
   it('Login in through vault', () => {
-      const baseUrl =  `https://kubefirst.${domain}/dashboard/applications`
+      const baseUrl =  `https://kubefirst.${domain}/dashboard/applications`;
+      cy.log(user_name,password,domain);
       if(!checkStatusCode(baseUrl))  throw new Error(`Timed out after ${totalDuration / 60000} minutes waiting for status code 200 for ${url}.`);
       cy.visit(baseUrl)
       cy.findByRole('button', { name: /vault\-icon log in with vault/i}).click();

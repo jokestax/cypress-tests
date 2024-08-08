@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var axios = require('axios');
 var url = process.argv[2];
 var totalDuration = Number(process.argv[3]);
-var interval = 1000; // Time between requests in milliseconds
+var interval = 1000;
 var startTime = Date.now();
 function checkStatus() {
     return __awaiter(this, void 0, void 0, function () {

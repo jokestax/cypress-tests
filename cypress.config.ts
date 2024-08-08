@@ -8,11 +8,6 @@ module.exports = defineConfig({
     },
     viewportWidth: 2000,
     viewportHeight: 900,
-    env:{
-      user_name: process.env.USERNAME,
-      password: process.env.PASSWORD,
-      domain_name: process.env.DOMAIN
-    }
-
   },
 });
+

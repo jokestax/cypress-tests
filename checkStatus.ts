@@ -3,7 +3,6 @@ const url: string = process.argv[2];
 const totalDuration: number = Number(process.argv[3]);
 const interval: number = 1000;
 const startTime: number = Date.now();
-
 async function checkStatus(): Promise<void> {
     try {
         const response = await axios.get(url);
