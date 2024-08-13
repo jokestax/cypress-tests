@@ -11,11 +11,7 @@ async function checkStatus(): Promise<void> {
             process.exit(0);
         }
     } catch (error) {
-        if (error.response) {
-            console.log(`Status code is ${error.response.status}. Retrying in ${interval / 1000} seconds...`);
-        } else {
-            console.log(`Error: ${error.message}. Retrying in ${interval / 1000} seconds...`);
-        }
+        
     }
 }
 
