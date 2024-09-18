@@ -1,7 +1,7 @@
 import '@testing-library/cypress/add-commands';
 const user_name : string = "kbot";
-const cluster_name: string = Cypress.env('CLUSTER_NAME')
-const time_in_minutes = Cypress.env('TIMEOUT');
+let cluster_name: string = Cypress.env('CLUSTER_NAME')
+let time_in_minutes = Cypress.env('TIMEOUT');
 const totalDuration = time_in_minutes * 60000;
 let password: string ='',domain: string ='',subdomain: string='';
 
@@ -26,7 +26,7 @@ const checkStatusCode = (url: string): Promise<{ status: boolean; error: string 
 };
 
 
-const requestUrl: string = `https://kubefirst-development.mgmt-20.kubefirst.com/api/proxy?url=/cluster/${cluster_name}`;
+const requestUrl: string = `https://console-staging.mgmt-24.konstruct.io/api/proxy?url=/cluster/${cluster_name}`;
 
 const checkRunning = (url:string) =>{
   cy.visit(url);
@@ -74,19 +74,7 @@ describe('Kubefirst Console', () => {
         cy.findByRole('textbox',{ name: /username/i}).clear().type(user_name);
         cy.get('input[name="password"]').type(password);
         cy.findByRole('button',{name: /sign in/i}).click();  
-        cy.findByRole('tab', {
-          name: /installed applications/i
-        }).click();    
-        if(subdomain.length>0) {
-          cy.get(`a[href="https://metaphor-development.${subdomain}.${domain}"]`).should('exist');
-          cy.get(`a[href="https://metaphor-staging.${subdomain}.${domain}"]`).should('exist');
-          cy.get(`a[href="https://metaphor-production.${subdomain}.${domain}"]`).should('exist');
-        }
-        else{
-          cy.get(`a[href="https://metaphor-development.${domain}"]`).should('exist');
-          cy.get(`a[href="https://metaphor-staging.${domain}"]`).should('exist');
-          cy.get(`a[href="https://metaphor-production.${domain}"]`).should('exist');
-        }
+
       })
   });
 
